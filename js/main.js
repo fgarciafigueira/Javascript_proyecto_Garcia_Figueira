@@ -48,9 +48,17 @@ function agregarObjetivoBoton (){
             const selectObjetivo = objetivosAhorro.find( objetivos =>objetivos.id ==objetivoId)
 
             cartObjetivos.push(selectObjetivo)
+            mostrarCantObjetivos()
         }
      })
 }
+
+//una pequeña funcion para mostrar la cantidad de objetivos
+function mostrarCantObjetivos(){
+    const cantidadElement = document.getElementById("cantidad_objetivos")
+    cantidadElement.textContent = cartObjetivos.length
+}
+
 
 //Esta funcion imprime los porcentajes que manejamos para armar la consulta
 function imprimirPorcentajesHTML(porcentajeAhorro){
