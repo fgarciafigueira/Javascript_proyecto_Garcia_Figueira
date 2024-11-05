@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: beige;
+}
+#container_objetivos{
+    display: flex;         
+    flex-wrap: wrap;     
+    position: relative;
+}
+
+#container_objetivos div{
+    flex: 0 1 auto;
+    padding: 10 px;
+    margin: 30px 30px;
+    
+}
+#container_objetivos h3 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: rgb(23, 16, 151);
+
+}
+
+button{
+    border-radius: 6px;
+    box-shadow: 5px;
+}
+
+#cabeza_tabla th{
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#cuerpo_tabla td{
+    padding-right: 15px;
+    padding-left: 15px;
+    text-align: center;
+}
