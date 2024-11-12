@@ -71,13 +71,14 @@ function imprimirPorcentajesHTML(porcentajeAhorro){
       
     }
 
-    selector.addEventListener('change', calcular_objetivos)
 }
 imprimirPorcentajesHTML(porcentajeAhorro)
 
 const ingresos = document.getElementById('ingresos')
 const selector = document.getElementById('select_porcentajes')
 
+const boton_calcular = document.getElementById('boton_calcular')
+boton_calcular.addEventListener('click', calcular_objetivos)
 
 //aca se desarrolla todos los calculos. y los guardo en una array
 let resultadoObjetivos = []
@@ -95,6 +96,7 @@ function calcular_objetivos (){
        const totalCalculo= Math.ceil(parseFloat(precioConvertido / ingresoObjetivo))
 
        const resultado={
+            id:Date.now(),
             precioConvertido: precioConvertido,
             ingreso: ingreso,
             porcentaje: porcentaje,
@@ -104,6 +106,8 @@ function calcular_objetivos (){
        resultadoObjetivos.push(resultado)
        console.log(resultadoObjetivos)
        imprimirtablaHTML(resultadoObjetivos)
+
+       localStorage.setItem("objetivosGuardados", JSON.stringify(resultado))
 
     }
 }
@@ -134,4 +138,47 @@ function imprimirtablaHTML(resultadoObjetivos){
     }
    
 }
+
+//Validacion de numeros en input
+ingresos.addEventListener('input', function(){
+    if (this.value <=0){
+        this.value=''
+        this.focus()
+    }
+})
+
+///////////Mostrar la tabla anterior
+
+let objetivosGuardados = JSON.parse(localStorage.getItem("objetivosGuardados")) || []
+
+if (!Array.isArray(objetivosGuardados)) {
+    objetivosGuardados = [objetivosGuardados];
+}
+
+console.log("Objetivos Guardados:", objetivosGuardados)
+function renderTabla (Items){
+    let tabla = document.getElementById("cuerpo_tabla")
+    tabla.innerHTML=""
+    let cabezaTabla = document.getElementById("cabeza_tabla")
+    cabezaTabla.innerHTML=""
+    const head=document.createElement("tr")
+    head.innerHTML=`<th>Total objetivos</th>
+                        <th>Ingresos totales</th>
+                        <th>Porcentaje dedicado</th>
+                        <th>Ingreso dedicado</th>
+                        <th>Meses de pagos</th>`
+    cabezaTabla.appendChild(head)
+    Items.forEach(producto => {
+        const fila =document.createElement("tr")
+        fila.innerHTML =` <td>${producto.precioConvertido.toLocaleString("es-Ar", { style: "currency", currency: "ARS" })}</td>
+                              <td>${producto.ingreso.toLocaleString("es-Ar", { style: "currency", currency: "ARS" })}</td>
+                                <td>${producto.porcentaje}</td>
+                                <td>${producto.ingresoObjetivo.toLocaleString("es-Ar", { style: "currency", currency: "ARS" })}</td>
+                                <td>${producto.totalCalculo}</td>`
+        tabla.appendChild(fila)
+    })
+}
+
+const btnAntiguo = document.getElementById('mostrar_anterior')
+btnAntiguo.addEventListener('click', () => renderTabla(objetivosGuardados))
 

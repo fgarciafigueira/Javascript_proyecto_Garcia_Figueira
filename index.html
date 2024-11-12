@@ -20,16 +20,23 @@
         <div>
             <h6 id="cantidad_objetivos"></h6>
             <label>Ponga aqui el total de sus ingresos en pesos</label><br>
-            $<input type="text" id="ingresos" ><br>
+            $<input type="number" id="ingresos" min="0"><br>
             <label>selecciones el porcentaje que desea destinar</label>
             <select id="select_porcentajes">
 
             </select>
+            <button id="boton_calcular">Calcular</button>
         </div>
         <table>
             <thead id="cabeza_tabla"></thead>
             <tbody id="cuerpo_tabla"></tbody>
         </table>
+        <br>
+        <div >
+            <label>¿Queres ver tu ultimo calculo?</label>
+            <button id="mostrar_anterior"> Click aca</button>
+        </div>
+
     </main>
 </body>
 </html>
